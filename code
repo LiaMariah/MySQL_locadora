@@ -1,0 +1,30 @@
+
+CREATE DATABASE locadora;
+USE locadora;
+
+CREATE TABLE clientes (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL,
+    cpf VARCHAR(14) UNIQUE,
+    cnh VARCHAR(20) NOT NULL
+);
+
+CREATE TABLE carros (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    modelo VARCHAR(50) NOT NULL,
+    marca VARCHAR(50) NOT NULL,
+    ano INT,
+    placa VARCHAR(10) UNIQUE,
+    disponivel BOOLEAN DEFAULT TRUE
+);
+
+CREATE TABLE aluguel (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    fk_cliente_id INT,
+    fk_carro_id INT,
+    data_aluguel DATETIME DEFAULT NOW(),
+    data_devolucao DATETIME,
+    valor_total DECIMAL(10,2),
+    FOREIGN KEY (cliente_id) REFERENCES clientes(id),
+    FOREIGN KEY (carro_id) REFERENCES carros(id)
+);
